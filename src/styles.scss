@@ -1,0 +1,25 @@
+@import "@ionic/angular/css/core.css";
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+@import "@ionic/angular/css/display.css";
+
+:root {
+  --ion-color-primary: #1a1a2e;
+  --ion-color-primary-rgb: 26,26,46;
+  --ion-color-primary-contrast: #e2e8ff;
+  --ion-color-primary-shade: #141428;
+  --ion-color-primary-tint: #313143;
+  --ion-color-secondary: #4f8ef7;
+  --ion-color-secondary-rgb: 79,142,247;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-shade: #4680d9;
+  --ion-color-secondary-tint: #6199f8;
+  --ion-background-color: #f0f4ff;
+  --ion-font-family: 'Segoe UI', system-ui, sans-serif;
+}

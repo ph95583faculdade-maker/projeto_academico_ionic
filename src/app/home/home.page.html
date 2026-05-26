@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <!-- MIQUEIAS — Pipe builtin uppercase -->
+    <ion-title>{{ 'book finder' | uppercase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-searchbar
+    placeholder="Pesquisar livros..."
+    debounce="600"
+    (ionChange)="onSearch($event)"
+    animated="true">
+  </ion-searchbar>
+
+  <!-- LUCAS — @if: mostra spinner enquanto carrega -->
+  @if (isLoading) {
+    <div class="center-content">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <ion-text color="medium"><p>Buscando livros...</p></ion-text>
+    </div>
+  }
+
+  <!-- LUCAS — @if: mostra erro se houver -->
+  @if (errorMessage) {
+    <ion-text color="danger">
+      <p class="ion-text-center ion-padding">{{ errorMessage }}</p>
+    </ion-text>
+  }
+
+  <!-- LUCAS — @if: só mostra a lista se tiver itens -->
+  @if (books.length > 0) {
+    <p class="results-count">
+      <ion-text color="medium">{{ books.length }} livros encontrados</ion-text>
+    </p>
+
+    <!-- LUCAS — @for: itera sobre cada livro da API -->
+    @for (book of books; track book.key) {
+      <!-- LETÍCIA — Diretiva personalizada appHighlight -->
+      <ion-card appHighlight highlightColor="#4f8ef7" (click)="goToDetail(book)">
+        <div class="card-inner">
+          <img [src]="getCoverUrl(book)" class="book-cover"
+               onerror="this.src='https://placehold.co/80x110?text=Sem+Capa'" alt="Capa" />
+          <ion-card-header>
+            <!-- MIQUEIAS — Pipe builtin uppercase no título -->
+            <ion-card-title>{{ book.title | uppercase }}</ion-card-title>
+            @if (book.author_name && book.author_name.length > 0) {
+              <ion-card-subtitle>{{ book.author_name[0] }}</ion-card-subtitle>
+            }
+          </ion-card-header>
+          <ion-card-content>
+            @if (book.first_publish_year) {
+              <ion-badge color="secondary">{{ book.first_publish_year }}</ion-badge>
+            }
+            <!-- VITOR — Pipe personalizado bookPages -->
+            <p class="pages-info">{{ book.number_of_pages_median | bookPages }}</p>
+          </ion-card-content>
+        </div>
+      </ion-card>
+    }
+  }
+
+  <!-- LUCAS — @if: lista vazia -->
+  @if (!isLoading && books.length === 0 && !errorMessage) {
+    <div class="center-content">
+      <ion-text color="medium"><p class="ion-text-center">Nenhum livro encontrado.</p></ion-text>
+    </div>
+  }
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title size="small" color="medium">📚 Book Finder — Projeto IONIC</ion-title>
+  </ion-toolbar>
+</ion-footer>

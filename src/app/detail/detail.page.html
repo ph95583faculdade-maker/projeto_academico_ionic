@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="Voltar"></ion-back-button>
+    </ion-buttons>
+    <!-- MIQUEIAS — Pipe builtin uppercase -->
+    <ion-title>{{ 'Detalhes' | uppercase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  @if (isLoading) {
+    <div class="center-content">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <ion-text color="medium"><p>Carregando detalhes...</p></ion-text>
+    </div>
+  }
+
+  @if (errorMessage) {
+    <ion-text color="danger">
+      <p class="ion-text-center ion-padding">{{ errorMessage }}</p>
+    </ion-text>
+    <div class="ion-text-center">
+      <ion-button fill="outline" (click)="goBack()">Voltar para a lista</ion-button>
+    </div>
+  }
+
+  @if (bookDetail && !isLoading) {
+    <!-- LETÍCIA — Diretiva personalizada appHighlight -->
+    <ion-card appHighlight highlightColor="#7c3aed">
+      <ion-card-header>
+        <!-- MIQUEIAS — Pipe builtin uppercase -->
+        <ion-card-title>{{ bookDetail.title | uppercase }}</ion-card-title>
+        @if (bookDetail.subtitle) {
+          <p class="subtitle">{{ bookDetail.subtitle }}</p>
+        }
+      </ion-card-header>
+      <ion-card-content>
+        <div class="info-row">
+          <span class="info-label">🔑 ID recebido por rota:</span>
+          <ion-badge color="secondary">{{ bookKey }}</ion-badge>
+        </div>
+        @if (bookDetail.first_publish_date) {
+          <div class="info-row">
+            <span class="info-label">📅 Publicação:</span>
+            <span>{{ bookDetail.first_publish_date }}</span>
+          </div>
+        }
+        <div class="description-box">
+          <h3>Descrição</h3>
+          <p>{{ getDescription() }}</p>
+        </div>
+        <!-- LUCAS — @for: lista os assuntos do livro -->
+        @if (bookDetail.subjects && bookDetail.subjects.length > 0) {
+          <h3 class="section-title">Assuntos</h3>
+          <div class="tags-container">
+            @for (subject of bookDetail.subjects.slice(0, 8); track subject) {
+              <ion-badge color="light" class="tag">{{ subject }}</ion-badge>
+            }
+          </div>
+        }
+      </ion-card-content>
+    </ion-card>
+
+    <div class="ion-text-center ion-padding-top">
+      <ion-button fill="outline" color="primary" (click)="goBack()">
+        ← Voltar para a lista
+      </ion-button>
+    </div>
+  }
+
+</ion-content>
