@@ -3,7 +3,7 @@
 // =========================================================
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, timeout } from 'rxjs';
 
 export interface Book {
   key: string;
@@ -18,6 +18,10 @@ export interface Book {
 export class BooksService {
   private readonly API_URL = 'https://openlibrary.org/search.json';
 
+  // Cache do livro clicado — usado para mostrar dados imediatamente na tela de detalhe
+  // sem precisar esperar a chamada extra da API (corrige o loading infinito)
+  selectedBook: Book | null = null;
+
   constructor(private http: HttpClient) {}
 
   searchBooks(query: string): Observable<Book[]> {
@@ -26,10 +30,13 @@ export class BooksService {
   }
 
   getBookDetail(workId: string): Observable<any> {
-    return this.http.get<any>(`https://openlibrary.org${workId}.json`);
+    // timeout de 8 segundos — sem isso, a requisição fica pendurada para sempre
+    return this.http.get<any>(`https://openlibrary.org${workId}.json`).pipe(
+      timeout(8000)
+    );
   }
 
-  getCoverUrl(coverId: number, size: 'S'|'M'|'L' = 'M'): string {
+  getCoverUrl(coverId: number, size: 'S' | 'M' | 'L' = 'M'): string {
     return `https://covers.openlibrary.org/b/id/${coverId}-${size}.jpg`;
   }
 }

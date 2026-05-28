@@ -55,6 +55,8 @@ export class HomePage implements OnInit {
 
   // GUILHERME — Req 7: passa o ID do livro por rota
   goToDetail(book: Book) {
+    // Salva o livro no cache do service para exibir imediatamente na tela de detalhe
+    this.booksService.selectedBook = book;
     this.router.navigate(['/detail', encodeURIComponent(book.key)]);
   }
 

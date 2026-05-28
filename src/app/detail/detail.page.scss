@@ -1,14 +1,46 @@
 ion-toolbar[color="primary"] { --background: #1a1a2e; --color: #e2e8ff; }
 ion-content { --background: #f0f4ff; }
-.center-content { display: flex; flex-direction: column; align-items: center; padding: 32px 16px; gap: 12px; }
+
+.cover-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 16px 8px;
+}
+.book-cover-large {
+  width: 130px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
 ion-card { border-radius: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); background: #fff; }
-ion-card-title { font-size: 1.1rem; font-weight: 800; color: #1a1a2e; }
-.subtitle { font-size: 0.9rem; color: #666; margin-top: 6px; font-style: italic; }
+ion-card-title { font-size: 1.05rem; font-weight: 800; color: #1a1a2e; line-height: 1.35; }
+.author { font-size: 0.88rem; color: #666; margin: 6px 0 0; font-style: italic; }
+
 .info-row { display: flex; align-items: center; gap: 8px; margin: 10px 0; font-size: 0.9rem; flex-wrap: wrap; }
 .info-label { font-weight: 600; color: #444; }
-.description-box { background: #f7f8ff; border-left: 3px solid #4f8ef7; border-radius: 0 6px 6px 0; padding: 12px; margin: 14px 0; }
+
+.extras-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0 6px;
+  opacity: 0.7;
+}
+
+.description-box {
+  background: #f7f8ff;
+  border-left: 3px solid #7c3aed;
+  border-radius: 0 6px 6px 0;
+  padding: 12px;
+  margin: 14px 0;
+}
 .description-box h3 { font-size: 0.9rem; font-weight: 700; color: #1a1a2e; margin: 0 0 8px; }
 .description-box p { font-size: 0.88rem; color: #555; line-height: 1.6; margin: 0; }
+
 .section-title { font-size: 0.9rem; font-weight: 700; color: #1a1a2e; margin: 12px 0 8px; }
 .tags-container { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 .tag { font-size: 0.78rem; padding: 4px 8px; color: #333 !important; border: 1px solid #dde !important; }
+
+.extra-error { font-size: 0.82rem; color: #aaa; font-style: italic; margin-top: 10px; }
