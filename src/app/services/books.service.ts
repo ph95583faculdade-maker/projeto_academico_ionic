@@ -13,7 +13,7 @@ export interface Book {
   number_of_pages_median?: number;
   cover_i?: number;
 }
-
+//service =,home,detail 
 @Injectable({ providedIn: 'root' })
 export class BooksService {
   private readonly API_URL = 'https://openlibrary.org/search.json';
@@ -23,7 +23,7 @@ export class BooksService {
   selectedBook: Book | null = null;
 
   constructor(private http: HttpClient) {}
-
+//api com metodo get
   searchBooks(query: string): Observable<Book[]> {
     const url = `${this.API_URL}?q=${encodeURIComponent(query)}&limit=20&fields=key,title,author_name,first_publish_year,number_of_pages_median,cover_i`;
     return this.http.get<any>(url).pipe(map(r => r.docs));
